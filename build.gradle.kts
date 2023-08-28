@@ -1,8 +1,10 @@
 plugins {
     id("java")
+    id("org.shipkit.shipkit-auto-version") version "1.2.2"
+    id("org.shipkit.shipkit-changelog") version "1.2.0"
 }
 
-group = "org.example"
+group = "org.puregeniusness"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -16,4 +18,10 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+tasks.named("generateChangelog") {
+//    val previousRevision = project.ext["shipkit-auto-version-previous-tag"]
+//    println(previousRevision)
+    println("Success")
 }
