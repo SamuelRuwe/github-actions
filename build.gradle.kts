@@ -65,11 +65,3 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
-
-//tasks.named("generateChangelog") {
-//    project.setProperty("repository", "SamuelRuwe/github-actions")
-//        SamuelRuwe/github-actions
-//    val previousRevision = project.ext.get("shipkit-auto-version-previous-tag")
-//    println(previousRevision)
-//    println("Success")
-//}
