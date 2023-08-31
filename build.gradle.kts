@@ -3,14 +3,7 @@ plugins {
     id("se.bjurr.gitchangelog.git-changelog-gradle-plugin") version("+")
 }
 
-//tasks.generateChangelog {
-//    repository = "SamuelRuwe/github-actions"
-//    previousRevision = "0.0.1"
-//    githubToken = System.getenv("GITHUB_TOKEN")
-//}
-
 group = "org.puregeniusness"
-version = "1.0-SNAPSHOT"
 
 
 // Optional config if you want to configure the changelog
@@ -47,12 +40,10 @@ tasks.register<se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask>("generateGi
  """.trimIndent()
 }
 
-//task gitChangelogVersionTask(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogSemanticVersionTask) {
-//    suffixSnapshot = true;
-//    majorVersionPattern = "^[Bb]reaking"
-//    minorVersionPattern = "[Ff]eature"
-//    patchVersionPattern = "[Ff]ix"
-//}
+tasks.register<se.bjurr.gitchangelog.plugin.gradle.GitChangelogSemanticVersionTask>("generateVersion") {
+    suffixSnapshot = false
+}
+
 repositories {
     mavenCentral()
 }
@@ -64,4 +55,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+task("printVersion") {
+    println("${project.version}")
 }

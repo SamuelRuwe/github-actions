@@ -1,3 +1,12 @@
+## 0.0.6
+### No issue
+
+****
+
+
+[18d606d566866b1](https://github.com///commit/18d606d566866b1)  **
+
+
 ## 0.0.5
 ### No issue
 
