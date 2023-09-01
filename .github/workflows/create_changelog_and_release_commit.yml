@@ -19,6 +19,7 @@ jobs:
         run: |
           git config user.email "you@example.com"
           git config user.name "github_actions"
+          git pull --tags
           ./gradlew generateVersion
           OUTPUT=$(./gradlew -q printVersion)
           echo $OUTPUT
