@@ -28,12 +28,12 @@ repositories {
     mavenCentral()
 }
 
-task("changelogVersion") {
+tasks.register("changelogVersion") {
     val result = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
         .withFromRepo(file(".").path)
         .withSemanticMajorVersionPattern("^[Bb]reaking")
         .withSemanticMinorVersionPattern("[Ff]eature")
-        .getNextSemanticVersion();
+        .getNextSemanticVersion()
     println(result)
 }
 
@@ -45,8 +45,10 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+tasks.register("helloWorld") {
+    println("hello world")
+}
 
-task("printVersion") {
-    val (major, minor, patch) = project.version.toString().split(".")
-    println(major)
+tasks.register("printVersion") {
+    println("${project.version}")
 }
