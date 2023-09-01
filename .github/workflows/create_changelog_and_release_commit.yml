@@ -23,6 +23,8 @@ jobs:
 #        uses: EndBug/add-and-commit@v9 # You can change this to use a specific version.
 #      - name: tag
         run: |
+          git config user.email "you@example.com"
+          git config user.name "github_actions"
           git add .
           git commit -m "release"
           git tag 0.0.9
