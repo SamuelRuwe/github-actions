@@ -19,7 +19,7 @@ jobs:
         run: |
           git config user.email "you@example.com"
           git config user.name "github_actions"
-          OUTPUT=$(./gradlew -q changelogVersion)
+          OUTPUT=$(./gradlew -q generateVersion)
           echo $OUTPUT
           git tag "$OUTPUT"
           ./gradlew generateGitChangelog
