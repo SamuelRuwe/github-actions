@@ -3,41 +3,21 @@ plugins {
     id("se.bjurr.gitchangelog.git-changelog-gradle-plugin") version("+")
 }
 
+buildscript {
+    dependencies {
+        classpath("se.bjurr.gitchangelog:git-changelog-lib:1.+")
+    }
+}
+
 group = "org.puregeniusness"
 
 
 // Optional config if you want to configure the changelog
 tasks.register<se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask>("generateGitChangelog") {
-    templateContent = """
-{{#tags}}
-## {{name}}
- {{#issues}}
-  {{#hasissue}}
-   {{#haslink}}
-### {{name}} [{{issue}}]({{link}}) {{title}} {{#hasissuetype}} *{{issuetype}}* {{/hasissuetype}} {{#haslabels}} {{#labels}} *{{.}}* {{/labels}} {{/haslabels}}
-   {{/haslink}}
-   {{^haslink}}
-### {{name}} {{issue}} {{title}} {{#hasissuetype}} *{{issuetype}}* {{/hasissuetype}} {{#haslabels}} {{#labels}} *{{.}}* {{/labels}} {{/haslabels}}
-   {{/haslink}}
-  {{/hasissue}}
-  {{^hasissue}}
-### {{name}}
-  {{/hasissue}}
-
-  {{#commits}}
-**{{{messagetitle}}}**
-
-{{#messagebodyitems}}
- * {{.}}
-{{/messagebodyitems}}
-
-[{{hash}}](https://github.com/{{ownername}}/{{reponame}}/commit/{{hash}}) {{authorname}} *{{committime}}*
-
-  {{/commits}}
-
- {{/issues}}
-{{/tags}}
- """.trimIndent()
+    templateContent = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
+        .withFromRepo(file("."))
+        .withTemplatePath("changelog.mustache")
+        .render()
 }
 
 tasks.register<se.bjurr.gitchangelog.plugin.gradle.GitChangelogSemanticVersionTask>("generateVersion") {
@@ -46,6 +26,15 @@ tasks.register<se.bjurr.gitchangelog.plugin.gradle.GitChangelogSemanticVersionTa
 
 repositories {
     mavenCentral()
+}
+
+task("changelogVersion") {
+    val result = se.bjurr.gitchangelog.api.GitChangelogApi.gitChangelogApiBuilder()
+        .withFromRepo(file(".").path)
+        .withSemanticMajorVersionPattern("^[Bb]reaking")
+        .withSemanticMinorVersionPattern("[Ff]eature")
+        .getNextSemanticVersion();
+    println(result)
 }
 
 dependencies {
@@ -58,5 +47,6 @@ tasks.test {
 }
 
 task("printVersion") {
-    println("${project.version}")
+    val (major, minor, patch) = project.version.toString().split(".")
+    println(major)
 }

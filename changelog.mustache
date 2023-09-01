@@ -1,0 +1,28 @@
+{{#tags}}
+    ## {{name}}
+    {{#issues}}
+        {{#hasissue}}
+            {{#haslink}}
+                ### {{name}} [{{issue}}]({{link}}) {{title}} {{#hasissuetype}} *{{issuetype}}* {{/hasissuetype}} {{#haslabels}} {{#labels}} *{{.}}* {{/labels}} {{/haslabels}}
+            {{/haslink}}
+            {{^haslink}}
+                ### {{name}} {{issue}} {{title}} {{#hasissuetype}} *{{issuetype}}* {{/hasissuetype}} {{#haslabels}} {{#labels}} *{{.}}* {{/labels}} {{/haslabels}}
+            {{/haslink}}
+        {{/hasissue}}
+        {{^hasissue}}
+            ### {{name}}
+        {{/hasissue}}
+
+        {{#commits}}
+            **{{{messagetitle}}}**
+
+            {{#messagebodyitems}}
+                * {{.}}
+            {{/messagebodyitems}}
+
+            [{{hash}}](https://github.com/{{ownername}}/{{reponame}}/commit/{{hash}}) {{authorname}} *{{committime}}*
+
+        {{/commits}}
+
+    {{/issues}}
+{{/tags}}
