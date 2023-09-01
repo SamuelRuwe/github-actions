@@ -27,7 +27,7 @@ jobs:
           git add CHANGELOG.md gradle.properties 
           git commit -m "chore(release): $OUTPUT"
           git tag "$OUTPUT"
-          git push --follow-tags
+          git push --tags
           
           
 
